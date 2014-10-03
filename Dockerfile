@@ -47,7 +47,7 @@ RUN \
   ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx
 
 # Add files to the container.
-ADD ./script/ /usr/local/bin
+ADD . /opt/openresty
 
 # Expose volumes.
 VOLUME ["/etc/nginx"]
@@ -56,7 +56,7 @@ VOLUME ["/etc/nginx"]
 WORKDIR /etc/nginx
 
 # Set the entrypoint script.
-ENTRYPOINT ["docker-entrypoint"]
+ENTRYPOINT ["./entrypoint"]
 
 # Define the default command.
 CMD ["nginx", "-c", "/etc/nginx/nginx.conf"]
