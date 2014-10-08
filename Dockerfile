@@ -16,21 +16,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install packages.
 RUN apt-get update
-RUN apt-get install -y build-essential curl libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl wget
-
-# Compile pcre from source.
-RUN \
-  wget http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz && \
-  tar zxvf pcre-*.tar.gz && \
-  rm -f pcre-*.tar.gz && \
-  cd pcre-* && \
-  ./configure && \
-  make && \
-  make install && \
-  make clean && \
-  cd .. && \
-  rm -rf pcre-* && \
-  ln -s /usr/local/lib/libpcre.so.1 /lib64
+RUN apt-get install -y build-essential curl libreadline-dev libncurses5-dev libpcre3-dev libssl-dev lua5.2 luarocks perl wget
 
 # Compile openresty from source.
 RUN \
@@ -38,28 +24,17 @@ RUN \
   tar -xzvf ngx_openresty-*.tar.gz && \
   rm -f ngx_openresty-*.tar.gz && \
   cd ngx_openresty-* && \
-  ./configure && \
+  ./configure --with-pcre-jit --with-ipv6 && \
   make && \
   make install && \
   make clean && \
   cd .. && \
-  rm -rf ngx_openresty-* && \
-  ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx
-
-# Compile lua from source.
-RUN \
-  wget -R -O http://www.lua.org/ftp/lua-5.2.3.tar.gz && \
-  tar -zxvf lua-* && \
-  cd lua-* && \
-  ./configure && \
-  make && \
-  make install && \
-  make clean && \
-  cd .. && \
-  rm -rf lua-*
+  rm -rf ngx_openresty-*&& \
+  ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx && \
+  ldconfig
 
 # Install luarocks modules
-luarocks install lua-resty-template
+RUN luarocks install lua-resty-template
 
 # Set the working directory.
 WORKDIR /opt/openresty
