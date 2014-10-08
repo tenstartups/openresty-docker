@@ -46,6 +46,21 @@ RUN \
   rm -rf ngx_openresty-* && \
   ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx
 
+# Compile lua from source.
+RUN \
+  wget -R -O http://www.lua.org/ftp/lua-5.2.3.tar.gz && \
+  tar -zxvf lua-* && \
+  cd lua-* && \
+  ./configure && \
+  make && \
+  make install && \
+  make clean && \
+  cd .. && \
+  rm -rf lua-*
+
+# Install luarocks modules
+luarocks install lua-resty-template
+
 # Set the working directory.
 WORKDIR /opt/openresty
 
