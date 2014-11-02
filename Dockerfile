@@ -16,7 +16,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install packages.
 RUN apt-get update
-RUN apt-get install -y build-essential curl libreadline-dev libncurses5-dev libpcre3-dev libssl-dev lua5.2 luarocks perl wget
+RUN apt-get install -y build-essential curl libreadline-dev libncurses5-dev libpcre3-dev libssl-dev lua5.2 luarocks nano perl wget
 
 # Compile openresty from source.
 RUN \
