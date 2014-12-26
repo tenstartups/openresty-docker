@@ -21,7 +21,7 @@ RUN apt-get install -y build-essential curl libreadline-dev libncurses5-dev libp
 
 # Compile openresty from source.
 RUN \
-  wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz && \
+  wget http://openresty.org/download/ngx_openresty-1.7.7.1.tar.gz && \
   tar -xzvf ngx_openresty-*.tar.gz && \
   rm -f ngx_openresty-*.tar.gz && \
   cd ngx_openresty-* && \
