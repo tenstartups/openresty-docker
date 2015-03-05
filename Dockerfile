@@ -1,12 +1,11 @@
 #
-# Openresty dockerfile
+# Openresty docker image
 #
 # This docker contains openresty (nginx) compiled from source with useful optional modules installed.
 #
 # http://github.com/tenstartups/openresty-docker
 #
 
-# Pull base image.
 FROM debian:jessie
 
 MAINTAINER Marc Lennox <marc.lennox@gmail.com>
@@ -16,8 +15,16 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm-color
 
 # Install packages.
-RUN apt-get update
-RUN apt-get install -y build-essential curl libreadline-dev libncurses5-dev libpcre3-dev libssl-dev lua5.2 luarocks nano perl wget
+RUN apt-get update && apt-get -y install \
+  build-essential \
+  curl \
+  libreadline-dev \
+  libncurses5-dev \
+  libpcre3-dev \
+  libssl-dev \
+  nano \
+  perl \
+  wget
 
 # Compile openresty from source.
 RUN \
@@ -33,9 +40,6 @@ RUN \
   rm -rf ngx_openresty-*&& \
   ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx && \
   ldconfig
-
-# Install luarocks modules
-RUN luarocks install lua-resty-template
 
 # Set the working directory.
 WORKDIR /opt/openresty
