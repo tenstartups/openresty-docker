@@ -2,7 +2,7 @@
 set -e
 
 # Copy a default configuration into place if not present
-if ! [ "$(ls -A .)" ]; then
+if ! [ -f /etc/nginx/nginx.conf ]; then
   cp -upR "/usr/local/openresty/nginx/conf/." "/etc/nginx/"
   echo "daemon off;" >> "/etc/nginx/nginx.conf"
 fi
