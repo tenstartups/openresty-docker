@@ -43,10 +43,10 @@ RUN \
   ldconfig
 
 # Set the working directory.
-WORKDIR /opt/openresty
+WORKDIR /home/openresty
 
 # Add files to the container.
-ADD . /opt/openresty
+ADD . /home/openresty
 
 # Expose volumes.
 VOLUME ["/etc/nginx"]
